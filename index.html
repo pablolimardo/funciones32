@@ -621,8 +621,153 @@ footer {
     </div>
   </div>
 
-  <div class="intro-box">
-    En el <span class="highlight">paradigma funcional</span>, programamos usando <strong>funciones puras</strong> que no modifican nada fuera de ellas. Esto hace que el código sea más <strong>predecible, testeable y fácil de mantener</strong>.
+  <div style="background: linear-gradient(135deg, rgba(46, 160, 67, 0.15), rgba(46, 160, 67, 0.05)); padding: 30px; border-radius: 16px; margin: 25px 0; border: 2px solid var(--primary);">
+    <h3 style="color: var(--primary); font-size: 1.6em; margin-bottom: 20px;">🤔 ¿Por Qué Importa el Paradigma Funcional?</h3>
+    
+    <p style="color: var(--text); font-size: 1.05em; line-height: 1.8; margin-bottom: 20px;">
+      Aprender programación funcional te hace mejor programador en CUALQUIER lenguaje. Aquí te muestro por qué:
+    </p>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">🧪 Código más Testeable</div>
+        <p style="color: var(--text-dim); margin-top: 10px;">
+          Las funciones puras son FÁCILES de probar porque siempre dan el mismo resultado. No necesitás configurar hardware, limpiar variables globales, ni rezar.
+        </p>
+        <div style="background: var(--code-bg); padding: 12px; border-radius: 8px; margin-top: 10px; border-left: 2px solid var(--primary);">
+          <pre style="color: var(--text); font-size: 0.85em;">def celsius_a_fahrenheit(c):
+    return c * 9/5 + 32
+
+# Test: simple!
+assert celsius_a_fahrenheit(0) == 32
+assert celsius_a_fahrenheit(100) == 212</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔍 Bugs Menos Probables</div>
+        <p style="color: var(--text-dim); margin-top: 10px;">
+          Sin variables globales modificándose, hay MENOS lugares donde los bugs pueden esconderse. Tu código es predecible.
+        </p>
+        <div style="background: var(--code-bg); padding: 12px; border-radius: 8px; margin-top: 10px; border-left: 2px solid var(--primary);">
+          <pre style="color: var(--text); font-size: 0.85em;"># ❌ Bug común (imperativo)
+contador = 0
+def procesar():
+    global contador  # Alguien modifica esto!
+    contador += 1    # Sorpresa!
+
+# ✅ Seguro (funcional)
+def procesar(lista):
+    return lista + [nuevo_elemento]</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔄 Código Reutilizable</div>
+        <p style="color: var(--text-dim); margin-top: 10px;">
+          Las funciones puras se pueden combinar y reutilizar fácilmente. Escribís menos código repetido.
+        </p>
+        <div style="background: var(--code-bg); padding: 12px; border-radius: 8px; margin-top: 10px; border-left: 2px solid var(--primary);">
+          <pre style="color: var(--text); font-size: 0.85em;"># Una función pura...
+def doble(x): return x * 2
+
+# ... se usa en cien contextos diferentes
+numeros = [1, 2, 3, 4]
+dobles = list(map(doble, numeros))
+# Funciona siempre, sin configuración</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">⚡ Más Fácil de Debuggear</div>
+        <p style="color: var(--text-dim); margin-top: 10px;">
+          Si algo está mal, sabes exactamente dónde: la función pura. No hay sorpresas de efectos secundarios.
+        </p>
+        <div style="background: var(--code-bg); padding: 12px; border-radius: 8px; margin-top: 10px; border-left: 2px solid var(--primary);">
+          <pre style="color: var(--text); font-size: 0.85em;"># ✅ Fácil de debuggear
+resultado = map(procesar, datos)
+print(resultado)  # Ves exactamente qué pasó</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎯 Paralelización (Futuro)</div>
+        <p style="color: var(--text-dim); margin-top: 10px;">
+          Las funciones puras se pueden ejecutar en paralelo sin problemas. Las funciones con efectos? Pesadilla.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📚 Código Autodocumentado</div>
+        <p style="color: var(--text-dim); margin-top: 10px;">
+          <code>map(convertir, temperaturas)</code> es CLARO. Sabes exactamente qué pasa. Vs imperativos complejos.
+        </p>
+      </div>
+    </div>
+
+    <div style="background: var(--surface); padding: 20px; border-radius: 12px; margin-top: 20px; border-left: 4px solid var(--accent);">
+      <strong style="color: var(--accent); font-size: 1.1em;">💡 En el proyecto de casa domótica:</strong>
+      <p style="color: var(--text-dim); margin-top: 10px; line-height: 1.8;">
+        Cuando tenés 50 sensores leyendo temperaturas simultáneamente, las funciones puras son tu salvavidas. Sabés que cada función funciona exactamente como se supone, sin importar qué más está pasando en el sistema.
+      </p>
+    </div>
+  </div>
+
+  <!-- TEORÍA EXPANDIDA: QUÉ ES UNA FUNCIÓN -->
+  <div style="background: linear-gradient(135deg, rgba(46, 160, 67, 0.15), rgba(46, 160, 67, 0.05)); padding: 30px; border-radius: 16px; margin: 25px 0; border: 2px solid var(--primary);">
+    <h3 style="color: var(--primary); font-size: 1.6em; margin-bottom: 20px;">🔍 Repaso: ¿Qué es una Función?</h3>
+    
+    <div style="background: var(--code-bg); padding: 25px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid var(--primary);">
+      <p style="color: var(--text); line-height: 1.9; font-size: 1.05em; margin-bottom: 15px;">
+        Una <strong>función</strong> es un <strong>bloque de código reutilizable</strong> que:
+      </p>
+      <ul style="padding-left: 25px; color: var(--text-dim); line-height: 1.8;">
+        <li>Recibe <strong>entrada</strong> (parámetros o argumentos)</li>
+        <li>Realiza <strong>un trabajo específico</strong></li>
+        <li>Retorna <strong>salida</strong> (resultado)</li>
+      </ul>
+      
+      <div style="background: var(--surface); padding: 20px; border-radius: 8px; margin-top: 15px; border: 1px dashed var(--primary);">
+        <pre style="color: var(--primary); font-weight: bold; margin-bottom: 15px;">def nombre_funcion(parámetro1, parámetro2):
+    # Aquí va el trabajo
+    resultado = parámetro1 + parámetro2
+    return resultado</pre>
+        <table style="width: 100%; color: var(--text); font-size: 0.9em;">
+          <tr style="background: var(--surface-2);">
+            <td style="padding: 10px; font-weight: bold; width: 30%; border-bottom: 1px solid var(--primary-dim);">Parte</td>
+            <td style="padding: 10px; border-bottom: 1px solid var(--primary-dim);">Explicación</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px;"><code>def</code></td>
+            <td style="padding: 10px;">Palabra clave para definir una función</td>
+          </tr>
+          <tr style="background: var(--surface-2);">
+            <td style="padding: 10px;"><code>nombre_funcion</code></td>
+            <td style="padding: 10px;">El nombre que elegís para tu función (describe qué hace)</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px;"><code>(parámetro1, parámetro2)</code></td>
+            <td style="padding: 10px;">Parámetros = lo que recibe la función (puede no haber ninguno)</td>
+          </tr>
+          <tr style="background: var(--surface-2);">
+            <td style="padding: 10px;"><code>return</code></td>
+            <td style="padding: 10px;">Devuelve el resultado de la función (salida)</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div style="background: var(--code-bg); padding: 20px; border-radius: 12px; margin: 15px 0;">
+      <strong style="color: var(--primary); font-size: 1.1em;">💡 Ejemplo Cotidiano:</strong>
+      <p style="color: var(--text-dim); margin-top: 10px;">
+        Una función es como una <strong>máquina expendedora</strong>:
+      </p>
+      <ul style="padding-left: 25px; color: var(--text-dim); margin-top: 10px;">
+        <li><strong>Entrada:</strong> Puts money (parámetro)</li>
+        <li><strong>Máquina procesa</strong> (código de la función)</li>
+        <li><strong>Salida:</strong> Te da un producto (return)</li>
+      </ul>
+    </div>
   </div>
 
   <!-- Conceptos Clave -->
@@ -630,24 +775,104 @@ footer {
     <div class="card-title">📚 Conceptos Clave del Paradigma Funcional</div>
     
     <div style="margin: 20px 0;">
-      <div style="background: var(--code-bg); padding: 15px; border-radius: 8px; margin: 12px 0;">
-        <strong style="color: var(--primary);">1. Funciones Puras</strong><br>
-        <span style="color: var(--text-dim);">Siempre devuelven el mismo resultado con la misma entrada. No modifican variables externas.</span>
+      <div style="background: var(--code-bg); padding: 20px; border-radius: 8px; margin: 12px 0;">
+        <strong style="color: var(--primary); font-size: 1.1em;">1. Funciones Puras ✅</strong><br>
+        <span style="color: var(--text-dim); display: block; margin-top: 10px;">Una función pura siempre devuelve el mismo resultado con la misma entrada y NO modifica nada afuera.</span>
+        <div style="background: var(--surface); padding: 15px; border-radius: 8px; margin-top: 10px; border-left: 3px solid var(--primary);">
+          <strong style="color: var(--primary);">Ejemplo Pura:</strong>
+          <pre style="color: var(--text); margin-top: 8px;">def sumar(a, b):
+    return a + b
+
+resultado = sumar(3, 5)  # Siempre da 8
+resultado = sumar(3, 5)  # Siempre da 8
+# ✅ Pura porque: mismo input → siempre mismo output</pre>
+        </div>
+        <div style="background: var(--surface); padding: 15px; border-radius: 8px; margin-top: 10px; border-left: 3px solid #ef4444;">
+          <strong style="color: #ef4444;">Ejemplo IMPURA (con efectos):</strong>
+          <pre style="color: var(--text); margin-top: 8px;">contador = 0
+def incrementar():
+    global contador
+    contador += 1  # Modifica variable externa
+    return contador
+
+resultado = incrementar()  # Devuelve 1
+resultado = incrementar()  # Devuelve 2 (diferente!)
+# ❌ Impura porque: modifica el mundo exterior</pre>
+        </div>
       </div>
 
-      <div style="background: var(--code-bg); padding: 15px; border-radius: 8px; margin: 12px 0;">
-        <strong style="color: var(--primary);">2. Inmutabilidad</strong><br>
-        <span style="color: var(--text-dim);">Los datos NO se modifican. Si necesitás cambiar algo, creás una copia nueva.</span>
+      <div style="background: var(--code-bg); padding: 20px; border-radius: 8px; margin: 12px 0;">
+        <strong style="color: var(--primary); font-size: 1.1em;">2. Inmutabilidad 🔒</strong><br>
+        <span style="color: var(--text-dim); display: block; margin-top: 10px;">Los datos NO se modifican. Si necesitás cambiar algo, creás una copia nueva.</span>
+        <div style="background: var(--surface); padding: 15px; border-radius: 8px; margin-top: 10px; border-left: 3px solid var(--primary);">
+          <strong style="color: var(--primary);">Estilo INMUTABLE (Funcional):</strong>
+          <pre style="color: var(--text); margin-top: 8px;">temperaturas = [20, 21, 22]
+# En lugar de modificar la lista...
+nuevas_temps = temperaturas + [23]
+# Creamos una NUEVA lista con el elemento agregado
+
+print(temperaturas)   # [20, 21, 22] (sin cambios)
+print(nuevas_temps)   # [20, 21, 22, 23] (nueva lista)</pre>
+        </div>
+        <div style="background: var(--surface); padding: 15px; border-radius: 8px; margin-top: 10px; border-left: 3px solid #ef4444;">
+          <strong style="color: #ef4444;">Estilo MUTABLE (Imperativo):</strong>
+          <pre style="color: var(--text); margin-top: 8px;">temperaturas = [20, 21, 22]
+# Modificamos la lista original
+temperaturas.append(23)
+print(temperaturas)   # [20, 21, 22, 23] (lista modificada)</pre>
+        </div>
+        <p style="color: var(--text-dim); margin-top: 15px; font-size: 0.95em;">
+          <strong>¿Por qué importa?</strong> Si trabajás con copias, no hay sorpresas. Nadie puede modificar tus datos "por atrás".
+        </p>
       </div>
 
-      <div style="background: var(--code-bg); padding: 15px; border-radius: 8px; margin: 12px 0;">
-        <strong style="color: var(--primary);">3. Funciones como Ciudadanos de Primera Clase</strong><br>
-        <span style="color: var(--text-dim);">Las funciones se pueden pasar como argumentos, guardar en variables, y devolver desde otras funciones.</span>
+      <div style="background: var(--code-bg); padding: 20px; border-radius: 8px; margin: 12px 0;">
+        <strong style="color: var(--primary); font-size: 1.1em;">3. Funciones como Ciudadanos de Primera Clase 👑</strong><br>
+        <span style="color: var(--text-dim); display: block; margin-top: 10px;">Las funciones se pueden pasar como argumentos, guardar en variables, y devolver desde otras funciones.</span>
+        <div style="background: var(--surface); padding: 15px; border-radius: 8px; margin-top: 10px; border-left: 3px solid var(--primary);">
+          <strong style="color: var(--primary);">Ejemplo: Pasar una función como argumento</strong>
+          <pre style="color: var(--text); margin-top: 8px;">def aplicar_operacion(a, b, operacion):
+    # 'operacion' es una FUNCIÓN que pasamos como parámetro
+    return operacion(a, b)
+
+def sumar(x, y):
+    return x + y
+
+def multiplicar(x, y):
+    return x * y
+
+# Pasamos funciones como argumentos
+print(aplicar_operacion(5, 3, sumar))        # 8
+print(aplicar_operacion(5, 3, multiplicar))  # 15</pre>
+        </div>
+        <p style="color: var(--text-dim); margin-top: 10px; font-size: 0.95em;">
+          <strong>¿Por qué es poderoso?</strong> Una misma función (aplicar_operacion) puede hacer cosas diferentes según la función que le pases.
+        </p>
       </div>
 
-      <div style="background: var(--code-bg); padding: 15px; border-radius: 8px; margin: 12px 0;">
-        <strong style="color: var(--primary);">4. Sin Efectos Secundarios</strong><br>
-        <span style="color: var(--text-dim);">Una función NO debe: modificar variables globales, imprimir en pantalla (salvo si es su propósito), cambiar archivos.</span>
+      <div style="background: var(--code-bg); padding: 20px; border-radius: 8px; margin: 12px 0;">
+        <strong style="color: var(--primary); font-size: 1.1em;">4. Sin Efectos Secundarios 🎯</strong><br>
+        <span style="color: var(--text-dim); display: block; margin-top: 10px;">Una función NO debe modificar el mundo exterior (variables globales, archivos, pantalla).</span>
+        <div style="background: var(--surface); padding: 15px; border-radius: 8px; margin-top: 10px; border-left: 3px solid var(--primary);">
+          <strong style="color: var(--primary);">PURA - Sin efectos:</strong>
+          <pre style="color: var(--text); margin-top: 8px;">def procesar_temperatura(temp):
+    # Solo calcula y retorna
+    celsius = (temp - 32) * 5/9
+    return celsius
+    # ✅ No modifica variables globales
+    # ✅ No imprime
+    # ✅ No accede a archivos</pre>
+        </div>
+        <div style="background: var(--surface); padding: 15px; border-radius: 8px; margin-top: 10px; border-left: 3px solid #ef4444;">
+          <strong style="color: #ef4444;">IMPURA - Con efectos:</strong>
+          <pre style="color: var(--text); margin-top: 8px;">archivo_log = open("log.txt", "a")
+
+def procesar_temperatura(temp):
+    celsius = (temp - 32) * 5/9
+    print(f"Procesando: {celsius}")  # ❌ Efecto: imprime
+    archivo_log.write(str(celsius))  # ❌ Efecto: modifica archivo
+    return celsius</pre>
+        </div>
       </div>
     </div>
   </div>
@@ -656,12 +881,69 @@ footer {
   <div style="margin-top: 30px;">
     <h3 style="color: var(--primary); font-size: 1.5em; margin-bottom: 20px;">⚔️ Imperativo vs Funcional: La Batalla</h3>
 
+    <div style="background: var(--surface); padding: 20px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid var(--primary);">
+      <strong style="color: var(--primary);">¿Cuál es la diferencia fundamental?</strong>
+      <p style="color: var(--text-dim); margin-top: 10px; line-height: 1.8;">
+        <strong>Imperativo:</strong> "¿CÓMO hago algo?" → Describís paso a paso qué hacer<br>
+        <strong>Funcional:</strong> "QUÉ quiero lograr?" → Describís el resultado deseado
+      </p>
+    </div>
+
+    <div style="background: var(--surface-2); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+      <strong style="color: var(--primary);">Ejemplo: Calcular promedio de temperaturas</strong>
+      <p style="color: var(--text-dim); margin-top: 10px; margin-bottom: 15px;">
+        Querés calcular el promedio de: [22.5, 23.1, 21.8]
+      </p>
+      
+      <div style="background: var(--code-bg); padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+        <strong style="color: #ef4444; display: block; margin-bottom: 10px;">❌ IMPERATIVO (¿CÓMO?):</strong>
+        <pre style="color: var(--text);">temperaturas = [22.5, 23.1, 21.8]
+
+# Paso 1: Crear variables
+total = 0
+cantidad = 0
+
+# Paso 2: Iterar manualmente
+for temp in temperaturas:
+    total = total + temp
+    cantidad = cantidad + 1
+
+# Paso 3: Calcular resultado
+promedio = total / cantidad
+
+print(promedio)  # 22.466...</pre>
+      </div>
+
+      <div style="background: var(--code-bg); padding: 20px; border-radius: 8px;">
+        <strong style="color: var(--primary); display: block; margin-bottom: 10px;">✅ FUNCIONAL (QUÉ?):</strong>
+        <pre style="color: var(--text);">from functools import reduce
+
+temperaturas = [22.5, 23.1, 21.8]
+
+# Una sola línea: "Quiero el promedio"
+promedio = reduce(lambda a, t: a + t, temperaturas, 0) / len(temperaturas)
+
+print(promedio)  # 22.466...</pre>
+      </div>
+    </div>
+
+    <div style="background: var(--surface); padding: 20px; border-radius: 12px;">
+      <strong style="color: var(--primary); font-size: 1.1em;">Por qué Funcional es mejor para este caso:</strong>
+      <ul style="padding-left: 25px; color: var(--text-dim); margin-top: 10px; line-height: 1.9;">
+        <li>❌ Imperativo: Necesitas rastrear <code>total</code> y <code>cantidad</code> en tu cabeza</li>
+        <li>❌ Imperativo: Más líneas = más lugar para cometer errores</li>
+        <li>✅ Funcional: Expresa claramente la intención: "Calcula el promedio"</li>
+        <li>✅ Funcional: Menos variables, menos bugs</li>
+        <li>✅ Funcional: Fácil de testear</li>
+      </ul>
+    </div>
+
     <div class="code-comparison">
       <!-- IMPERATIVO -->
       <div class="code-block">
         <div class="code-header">
           <span class="code-lang python-badge">🐍 Python Imperativo</span>
-          <span class="code-status status-bad">❌ Con Efectos</span>
+          <span class="code-status status-bad">❌ Verboso</span>
         </div>
         <pre><code># Variable global (¡peligro!)
 temperatura_total = 0
@@ -681,15 +963,18 @@ agregar_temperatura(23.1)
 agregar_temperatura(21.8)
 promedio = obtener_promedio()
 
-# Problema: Las funciones modifican 
-# variables externas (efectos secundarios)</code></pre>
+# Problemas:
+# - Variables globales (confuso)
+# - Estado mutable (cambios sorpresa)
+# - Difícil de testear
+# - Error propenso</code></pre>
       </div>
 
       <!-- FUNCIONAL -->
       <div class="code-block">
         <div class="code-header">
           <span class="code-lang python-badge">🐍 Python Funcional</span>
-          <span class="code-status status-good">✅ Pura</span>
+          <span class="code-status status-good">✅ Limpio</span>
         </div>
         <pre><code># Sin variables globales
 
@@ -702,10 +987,12 @@ def calcular_promedio(temperaturas):
 mediciones = [22.5, 23.1, 21.8]
 promedio = calcular_promedio(mediciones)
 
-# ✅ La función es pura:
-# - No modifica nada externo
-# - Siempre da el mismo resultado
-# - Fácil de testear</code></pre>
+# Ventajas:
+# + Función pura (predecible)
+# + No hay estado global
+# + Fácil de testear
+# + Inmutable (datos no cambian)
+# + Reutilizable</code></pre>
       </div>
     </div>
   </div>
@@ -810,6 +1097,341 @@ print(clasificar_temperatura(28))   # CALOR</code></pre>
         <li>No imprime nada (solo retorna)</li>
         <li>No lee archivos, no usa input(), no genera números random</li>
       </ul>
+    </div>
+  </div>
+
+  <!-- TEORÍA: FUNCIONES DE ORDEN SUPERIOR -->
+  <div style="background: linear-gradient(135deg, rgba(46, 160, 67, 0.15), rgba(46, 160, 67, 0.05)); padding: 30px; border-radius: 16px; margin: 25px 0; border: 2px solid var(--primary);">
+    <h3 style="color: var(--primary); font-size: 1.6em; margin-bottom: 20px;">🚀 Funciones de Orden Superior: El Siguiente Nivel</h3>
+    
+    <p style="color: var(--text); font-size: 1.1em; line-height: 1.8; margin-bottom: 20px;">
+      Una <strong>función de orden superior</strong> es una función que:
+    </p>
+    <ul style="padding-left: 25px; color: var(--text); font-size: 1em; line-height: 1.9; margin-bottom: 20px;">
+      <li>✅ Recibe otra función como argumento, O</li>
+      <li>✅ Devuelve una función como resultado</li>
+    </ul>
+
+    <div style="background: var(--surface); padding: 20px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid var(--primary);">
+      <strong style="color: var(--primary); font-size: 1.1em;">💡 Analogía: Máquina que configura máquinas</strong>
+      <p style="color: var(--text-dim); margin-top: 10px;">
+        Una función de orden superior es como una <strong>máquina que crea o modifica otras máquinas</strong>. No hace el trabajo directamente, sino que orquesta a otras máquinas para hacerlo.
+      </p>
+    </div>
+
+    <div style="background: var(--code-bg); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+      <strong style="color: var(--primary); font-size: 1.1em;">Ejemplo: Función que devuelve una función</strong>
+      <pre style="color: var(--text); margin-top: 10px;">def crear_multiplicador(factor):
+    """Esta función RETORNA otra función"""
+    def multiplicar(x):
+        return x * factor
+    return multiplicar
+
+# Creamos funciones personalizadas
+duplicar = crear_multiplicador(2)
+triplicar = crear_multiplicador(3)
+
+print(duplicar(5))    # 10 (5 * 2)
+print(triplicar(5))   # 15 (5 * 3)
+
+# Misma estructura, diferentes comportamientos
+# Eso es el poder de las funciones de orden superior</pre>
+    </div>
+  </div>
+
+  <!-- TEORÍA: map() -->
+  <div style="background: linear-gradient(135deg, rgba(46, 160, 67, 0.15), rgba(46, 160, 67, 0.05)); padding: 30px; border-radius: 16px; margin: 25px 0; border: 2px solid var(--primary);">
+    <h3 style="color: var(--primary); font-size: 1.6em; margin-bottom: 20px;">🗺️ Función: map()</h3>
+    
+    <p style="color: var(--text); font-size: 1.05em; line-height: 1.8; margin-bottom: 20px;">
+      <code>map()</code> aplica una función a <strong>cada elemento</strong> de una lista y devuelve una nueva lista con los resultados.
+    </p>
+
+    <div style="background: var(--surface); padding: 20px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid var(--primary);">
+      <strong style="color: var(--primary);">Sintaxis:</strong>
+      <pre style="color: var(--text); margin-top: 10px;">resultado = list(map(funcion, lista))</pre>
+      <p style="color: var(--text-dim); margin-top: 10px; font-size: 0.95em;">
+        • <strong>funcion:</strong> Una función que se aplicará a cada elemento<br>
+        • <strong>lista:</strong> La lista con los elementos<br>
+        • <strong>list():</strong> Convertir el resultado a una lista (map devuelve un objeto especial)
+      </p>
+    </div>
+
+    <div style="background: var(--code-bg); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+      <strong style="color: var(--primary); font-size: 1.1em;">Ejemplo: Convertir toda una lista de Celsius a Fahrenheit</strong>
+      <pre style="color: var(--text); margin-top: 10px;">def celsius_a_fahrenheit(celsius):
+    return (celsius * 9/5) + 32
+
+# Lista de temperaturas en Celsius
+temps_celsius = [18, 20, 22, 24, 26]
+
+# Usar map() para convertir TODAS
+temps_fahrenheit = list(map(celsius_a_fahrenheit, temps_celsius))
+
+print(temps_celsius)      # [18, 20, 22, 24, 26]
+print(temps_fahrenheit)   # [64.4, 68.0, 71.6, 75.2, 78.8]
+
+# Paso a paso qué hace map():
+# 1. Toma el primer elemento (18) → aplica celsius_a_fahrenheit(18) → 64.4
+# 2. Toma el segundo elemento (20) → aplica celsius_a_fahrenheit(20) → 68.0
+# 3. Toma el tercero (22) → aplica celsius_a_fahrenheit(22) → 71.6
+# ... y así para todos los elementos</pre>
+    </div>
+
+    <div style="background: var(--surface); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+      <strong style="color: var(--primary);">Comparación: map() vs bucle tradicional</strong>
+      <div style="background: var(--code-bg); padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 3px solid #ef4444;">
+        <strong style="color: #ef4444;">Imperativo (bucle for):</strong>
+        <pre style="color: var(--text); margin-top: 8px;">temps_fahrenheit = []
+for celsius in temps_celsius:
+    fahrenheit = celsius_a_fahrenheit(celsius)
+    temps_fahrenheit.append(fahrenheit)
+
+print(temps_fahrenheit)</pre>
+      </div>
+      <div style="background: var(--code-bg); padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 3px solid var(--primary);">
+        <strong style="color: var(--primary);">Funcional (map):</strong>
+        <pre style="color: var(--text); margin-top: 8px;">temps_fahrenheit = list(map(celsius_a_fahrenheit, temps_celsius))
+
+print(temps_fahrenheit)</pre>
+      </div>
+      <p style="color: var(--text-dim); margin-top: 10px; font-size: 0.95em;">
+        <strong>✅ El funcional es más corto y expresa mejor la intención:</strong> "Aplica esta función a toda la lista"
+      </p>
+    </div>
+  </div>
+
+  <!-- TEORÍA: filter() -->
+  <div style="background: linear-gradient(135deg, rgba(46, 160, 67, 0.15), rgba(46, 160, 67, 0.05)); padding: 30px; border-radius: 16px; margin: 25px 0; border: 2px solid var(--primary);">
+    <h3 style="color: var(--primary); font-size: 1.6em; margin-bottom: 20px;">🔍 Función: filter()</h3>
+    
+    <p style="color: var(--text); font-size: 1.05em; line-height: 1.8; margin-bottom: 20px;">
+      <code>filter()</code> filtra elementos de una lista según una <strong>condición</strong>, devolviendo solo los que cumplen la condición.
+    </p>
+
+    <div style="background: var(--surface); padding: 20px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid var(--primary);">
+      <strong style="color: var(--primary);">Sintaxis:</strong>
+      <pre style="color: var(--text); margin-top: 10px;">resultado = list(filter(funcion_que_retorna_bool, lista))</pre>
+      <p style="color: var(--text-dim); margin-top: 10px; font-size: 0.95em;">
+        • <strong>funcion_que_retorna_bool:</strong> Una función que retorna True o False<br>
+        • <strong>lista:</strong> La lista a filtrar<br>
+        • <strong>Resultado:</strong> Una nueva lista SOLO con elementos donde la función retorna True
+      </p>
+    </div>
+
+    <div style="background: var(--code-bg); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+      <strong style="color: var(--primary); font-size: 1.1em;">Ejemplo: Filtrar solo temperaturas confortables (18-24°C)</strong>
+      <pre style="color: var(--text); margin-top: 10px;">def es_confortable(temperatura):
+    """Retorna True si está en rango confortable"""
+    return 18 <= temperatura <= 24
+
+# Lista de temperaturas del día
+temps = [15, 18, 20, 25, 22, 17, 23, 28]
+
+# Filtrar solo las confortables
+temps_ok = list(filter(es_confortable, temps))
+
+print(temps)      # [15, 18, 20, 25, 22, 17, 23, 28]
+print(temps_ok)   # [18, 20, 22, 23]
+
+# Paso a paso qué hace filter():
+# 1. ¿es_confortable(15)? → False → NO incluye 15
+# 2. ¿es_confortable(18)? → True → INCLUYE 18
+# 3. ¿es_confortable(20)? → True → INCLUYE 20
+# 4. ¿es_confortable(25)? → False (> 24) → NO incluye 25
+# ... y así para todos</pre>
+    </div>
+
+    <div style="background: var(--surface); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+      <strong style="color: var(--primary);">Comparación: filter() vs bucle tradicional</strong>
+      <div style="background: var(--code-bg); padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 3px solid #ef4444;">
+        <strong style="color: #ef4444;">Imperativo (bucle for):</strong>
+        <pre style="color: var(--text); margin-top: 8px;">temps_ok = []
+for temp in temps:
+    if es_confortable(temp):
+        temps_ok.append(temp)
+
+print(temps_ok)</pre>
+      </div>
+      <div style="background: var(--code-bg); padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 3px solid var(--primary);">
+        <strong style="color: var(--primary);">Funcional (filter):</strong>
+        <pre style="color: var(--text); margin-top: 8px;">temps_ok = list(filter(es_confortable, temps))
+
+print(temps_ok)</pre>
+      </div>
+      <p style="color: var(--text-dim); margin-top: 10px; font-size: 0.95em;">
+        <strong>✅ El funcional es más limpio:</strong> "Filtra esta lista según esta condición"
+      </p>
+    </div>
+  </div>
+
+  <!-- TEORÍA: reduce() -->
+  <div style="background: linear-gradient(135deg, rgba(46, 160, 67, 0.15), rgba(46, 160, 67, 0.05)); padding: 30px; border-radius: 16px; margin: 25px 0; border: 2px solid var(--primary);">
+    <h3 style="color: var(--primary); font-size: 1.6em; margin-bottom: 20px;">📉 Función: reduce()</h3>
+    
+    <p style="color: var(--text); font-size: 1.05em; line-height: 1.8; margin-bottom: 20px;">
+      <code>reduce()</code> <strong>reduce una lista a UN ÚNICO valor</strong> aplicando una función acumuladora a todos los elementos.
+    </p>
+
+    <div style="background: var(--surface); padding: 20px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid var(--primary);">
+      <strong style="color: var(--primary);">Sintaxis:</strong>
+      <pre style="color: var(--text); margin-top: 10px;">from functools import reduce
+resultado = reduce(funcion_acumuladora, lista, valor_inicial)</pre>
+      <p style="color: var(--text-dim); margin-top: 10px; font-size: 0.95em;">
+        • <strong>funcion_acumuladora:</strong> Función que recibe (acumulador, elemento_actual)<br>
+        • <strong>lista:</strong> La lista a procesar<br>
+        • <strong>valor_inicial:</strong> El valor de inicio (opcional)
+      </p>
+    </div>
+
+    <div style="background: var(--code-bg); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+      <strong style="color: var(--primary); font-size: 1.1em;">Ejemplo: Calcular la suma de temperaturas</strong>
+      <pre style="color: var(--text); margin-top: 10px;">from functools import reduce
+
+def sumar(acumulado, temperatura):
+    """Recibe el acumulado hasta ahora + elemento actual"""
+    return acumulado + temperatura
+
+temps = [20, 22, 21, 23, 25]
+
+# Usar reduce para sumar todos
+suma_total = reduce(sumar, temps, 0)  # 0 es el valor inicial
+
+print(suma_total)  # 111
+
+# Paso a paso qué hace reduce():
+# 1. acumulado=0, temp=20 → sumar(0, 20) → 20
+# 2. acumulado=20, temp=22 → sumar(20, 22) → 42
+# 3. acumulado=42, temp=21 → sumar(42, 21) → 63
+# 4. acumulado=63, temp=23 → sumar(63, 23) → 86
+# 5. acumulado=86, temp=25 → sumar(86, 25) → 111
+# Resultado final: 111</pre>
+    </div>
+
+    <div style="background: var(--code-bg); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+      <strong style="color: var(--primary); font-size: 1.1em;">Otro ejemplo: Encontrar la temperatura máxima</strong>
+      <pre style="color: var(--text); margin-top: 10px;">from functools import reduce
+
+def encontrar_maximo(acumulado, temperatura):
+    if temperatura > acumulado:
+        return temperatura
+    else:
+        return acumulado
+
+temps = [20, 22, 21, 23, 25, 19]
+temperatura_maxima = reduce(encontrar_maximo, temps)
+
+print(temperatura_maxima)  # 25
+
+# Nota: Sin valor_inicial, usa el primer elemento (20)
+# 1. acumulado=20 (primer elemento), temp=22 → 22
+# 2. acumulado=22, temp=21 → 22
+# 3. acumulado=22, temp=23 → 23
+# ...
+# Resultado: 25</pre>
+    </div>
+
+    <div style="background: var(--surface); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+      <strong style="color: var(--primary);">Comparación: reduce() vs bucle tradicional</strong>
+      <div style="background: var(--code-bg); padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 3px solid #ef4444;">
+        <strong style="color: #ef4444;">Imperativo (bucle for):</strong>
+        <pre style="color: var(--text); margin-top: 8px;">suma = 0
+for temp in temps:
+    suma = suma + temp
+
+print(suma)  # 111</pre>
+      </div>
+      <div style="background: var(--code-bg); padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 3px solid var(--primary);">
+        <strong style="color: var(--primary);">Funcional (reduce):</strong>
+        <pre style="color: var(--text); margin-top: 8px;">from functools import reduce
+suma = reduce(lambda a, t: a + t, temps, 0)
+print(suma)  # 111</pre>
+      </div>
+      <p style="color: var(--text-dim); margin-top: 10px; font-size: 0.95em;">
+        <strong>✅ El funcional expresa claramente:</strong> "Reduce esta lista a un único valor sumando"
+      </p>
+    </div>
+
+    <div style="background: var(--surface); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+      <strong style="color: var(--primary);">💡 Bonus: Lambda Functions (Funciones Anónimas)</strong>
+      <p style="color: var(--text-dim); margin-top: 10px;">
+        A veces, la función que pasas a map/filter/reduce es muy pequeña. Podés usar <strong>lambda</strong> para escribirla en una línea:
+      </p>
+      <div style="background: var(--code-bg); padding: 15px; border-radius: 8px; margin-top: 10px;">
+        <strong style="color: var(--primary);">Con función named:</strong>
+        <pre style="color: var(--text); margin-top: 8px;">def sumar_5(x):
+    return x + 5
+
+resultado = list(map(sumar_5, [1, 2, 3]))
+# [6, 7, 8]</pre>
+      </div>
+      <div style="background: var(--code-bg); padding: 15px; border-radius: 8px; margin-top: 10px;">
+        <strong style="color: var(--primary);">Con lambda (más corto):</strong>
+        <pre style="color: var(--text); margin-top: 8px;">resultado = list(map(lambda x: x + 5, [1, 2, 3]))
+# [6, 7, 8]
+
+# Sintaxis: lambda parámetros: expresión</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEORÍA: list() -->
+  <div style="background: linear-gradient(135deg, rgba(46, 160, 67, 0.15), rgba(46, 160, 67, 0.05)); padding: 30px; border-radius: 16px; margin: 25px 0; border: 2px solid var(--primary);">
+    <h3 style="color: var(--primary); font-size: 1.6em; margin-bottom: 20px;">📝 Función: list()</h3>
+    
+    <p style="color: var(--text); font-size: 1.05em; line-height: 1.8; margin-bottom: 20px;">
+      <code>list()</code> convierte un objeto iterable (como el resultado de map() o filter()) a una <strong>lista de Python</strong> que podés ver e iterar.
+    </p>
+
+    <div style="background: var(--surface); padding: 20px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid var(--primary);">
+      <strong style="color: var(--primary);">¿Por qué necesitamos list()?</strong>
+      <p style="color: var(--text-dim); margin-top: 10px;">
+        map() y filter() devuelven objetos especiales llamados "iterables". Python los procesa bajo demanda (lazy evaluation = evaluación perezosa). Si querés ver todos los elementos a la vez, convertís a lista con list().
+      </p>
+    </div>
+
+    <div style="background: var(--code-bg); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+      <strong style="color: var(--primary); font-size: 1.1em;">Ejemplo: Sin list() vs con list()</strong>
+      <pre style="color: var(--text); margin-top: 10px;">temps = [20, 22, 21]
+
+# Sin list() - No ves nada útil
+resultado_sin_list = map(lambda x: x * 2, temps)
+print(resultado_sin_list)  # &lt;map object at 0x...&gt; (objeto confuso)
+
+# Con list() - Ves la lista claramente
+resultado_con_list = list(map(lambda x: x * 2, temps))
+print(resultado_con_list)  # [40, 44, 42] (mucho mejor!)</pre>
+    </div>
+
+    <div style="background: var(--surface); padding: 20px; border-radius: 12px;">
+      <strong style="color: var(--primary);">🎯 Resumen: Cuándo usás cada una</strong>
+      <table style="width: 100%; margin-top: 15px;">
+        <tr style="background: var(--surface-2);">
+          <td style="padding: 12px; font-weight: bold; border-bottom: 1px solid var(--primary-dim);">Función</td>
+          <td style="padding: 12px; font-weight: bold; border-bottom: 1px solid var(--primary-dim);">Propósito</td>
+          <td style="padding: 12px; font-weight: bold; border-bottom: 1px solid var(--primary-dim);">Devuelve</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px;"><code style="color: var(--primary);">list()</code></td>
+          <td style="padding: 12px;">Convertir iterable a lista visible</td>
+          <td style="padding: 12px;">Una lista de Python</td>
+        </tr>
+        <tr style="background: var(--surface-2);">
+          <td style="padding: 12px;"><code style="color: var(--primary);">map()</code></td>
+          <td style="padding: 12px;">Transformar cada elemento</td>
+          <td style="padding: 12px;">Objeto map (úsalo con list())</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px;"><code style="color: var(--primary);">filter()</code></td>
+          <td style="padding: 12px;">Seleccionar elementos que cumplen condición</td>
+          <td style="padding: 12px;">Objeto filter (úsalo con list())</td>
+        </tr>
+        <tr style="background: var(--surface-2);">
+          <td style="padding: 12px;"><code style="color: var(--primary);">reduce()</code></td>
+          <td style="padding: 12px;">Acumular en UN valor</td>
+          <td style="padding: 12px;">Un valor único (int, float, etc)</td>
+        </tr>
+      </table>
     </div>
   </div>
 
