@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paradigma Funcional: Domótica con Estilo 🏠 · Taller de Programación 3°2°</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --surface-2: #21262d;
+  --primary: #2ea043;
+  --primary-dim: #1a7f37;
+  --text: #e6edf3;
+  --text-dim: #7d8590;
+  --accent: #f778ba;
+  --warning: #fbbf24;
+  --code-bg: #0d1117;
+  --python: #3776ab;
+  --arduino: #00979d;
+}
+
+[data-theme="light"] {
+  --bg: #ffffff;
+  --surface: #f6f8fa;
+  --surface-2: #eaeef2;
+  --primary: #2ea043;
+  --primary-dim: #1a7f37;
+  --text: #24292f;
+  --text-dim: #57606a;
+  --accent: #d63384;
+  --warning: #f59e0b;
+  --code-bg: #f6f8fa;
+  --python: #3776ab;
+  --arduino: #00979d;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  padding: 20px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+header {
+  background: linear-gradient(135deg, #1a7f37, #2ea043);
+  padding: 40px;
+  border-radius: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 40px rgba(46, 160, 67, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: "🏠";
+  position: absolute;
+  font-size: 200px;
+  opacity: 0.1;
+  right: -50px;
+  top: -50px;
+}
+
+h1 {
+  font-size: 2.8em;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.subtitle {
+  font-size: 1.3em;
+  color: rgba(255,255,255,0.95);
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.meta {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.badge {
+  background: rgba(255,255,255,0.2);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 0.9em;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.nav {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--surface);
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  display: flex;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.nav-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 600;
+  transition: all 0.2s;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.nav-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(46, 160, 67, 0.4);
+}
+
+.theme-btn {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.timeline {
+  background: var(--surface);
+  padding: 25px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  border-left: 4px solid var(--primary);
+}
+
+.timeline-title {
+  font-size: 1.4em;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.time-block {
+  background: var(--surface-2);
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  border: 2px solid transparent;
+  transition: all 0.3s;
+}
+
+.time-block:hover {
+  border-color: var(--primary);
+  transform: scale(1.05);
+}
+
+.time-block-time {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.time-block-desc {
+  font-size: 0.9em;
+  color: var(--text-dim);
+}
+
+.section {
+  background: var(--surface);
+  padding: 35px;
+  border-radius: 16px;
+  margin-bottom: 25px;
+  border: 2px solid var(--surface-2);
+}
+
+.section-title {
+  font-size: 2em;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.intro-box {
+  background: linear-gradient(135deg, rgba(46, 160, 67, 0.15), rgba(46, 160, 67, 0.05));
+  padding: 25px;
+  border-radius: 12px;
+  border-left: 4px solid var(--primary);
+  margin: 20px 0;
+  font-size: 1.1em;
+  line-height: 1.8;
+}
+
+.analogy {
+  background: linear-gradient(135deg, rgba(247, 120, 186, 0.15), rgba(247, 120, 186, 0.05));
+  padding: 30px;
+  border-radius: 16px;
+  margin: 25px 0;
+  border: 3px solid var(--accent);
+}
+
+.analogy-title {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.analogy-content {
+  color: var(--text);
+  line-height: 1.9;
+  font-size: 1.05em;
+}
+
+.code-comparison {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 20px;
+  margin: 25px 0;
+}
+
+.code-block {
+  background: var(--code-bg);
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid var(--surface-2);
+  overflow-x: auto;
+}
+
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--surface-2);
+}
+
+.code-lang {
+  font-weight: 700;
+  font-size: 1.1em;
+}
+
+.python-badge { color: var(--python); }
+.arduino-badge { color: var(--arduino); }
+
+.code-status {
+  font-size: 0.85em;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.status-good { background: rgba(46, 160, 67, 0.2); color: var(--primary); }
+.status-bad { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+
+pre {
+  margin: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.9em;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.mision {
+  background: var(--surface-2);
+  padding: 30px;
+  border-radius: 16px;
+  margin-bottom: 25px;
+  border-left: 5px solid var(--primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.mision::before {
+  content: "⚡";
+  position: absolute;
+  font-size: 120px;
+  opacity: 0.05;
+  right: 20px;
+  top: -20px;
+}
+
+.mision-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.mision-numero {
+  font-size: 2em;
+  font-weight: 800;
+  color: var(--primary);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.mision-nivel {
+  background: var(--primary);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.nivel-tutorial { background: #3b82f6; }
+.nivel-facil { background: var(--primary); }
+.nivel-medio { background: var(--warning); }
+.nivel-dificil { background: #ef4444; }
+.nivel-boss { background: var(--accent); }
+
+.mision-titulo {
+  font-size: 1.5em;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: var(--text);
+}
+
+.mision-desc {
+  color: var(--text-dim);
+  margin-bottom: 20px;
+  line-height: 1.8;
+  font-size: 1.05em;
+}
+
+.ejercicio {
+  background: var(--code-bg);
+  padding: 25px;
+  border-radius: 12px;
+  margin: 20px 0;
+  border: 2px solid var(--primary);
+}
+
+.ejercicio-titulo {
+  font-size: 1.2em;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkpoint {
+  background: linear-gradient(135deg, rgba(46, 160, 67, 0.1), rgba(46, 160, 67, 0.05));
+  padding: 25px;
+  border-radius: 12px;
+  margin: 25px 0;
+  border: 2px solid var(--primary);
+}
+
+.checkpoint-titulo {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkpoint ul {
+  list-style: none;
+  padding: 0;
+}
+
+.checkpoint li {
+  padding: 10px 0 10px 30px;
+  position: relative;
+  color: var(--text);
+  font-size: 1.05em;
+}
+
+.checkpoint li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.tip {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(251, 191, 36, 0.05));
+  padding: 20px;
+  border-radius: 12px;
+  margin: 20px 0;
+  border-left: 4px solid var(--warning);
+}
+
+.tip-title {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: var(--warning);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.warning {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05));
+  padding: 20px;
+  border-radius: 12px;
+  margin: 20px 0;
+  border-left: 4px solid #ef4444;
+}
+
+.warning-title {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: #ef4444;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 20px;
+  margin: 25px 0;
+}
+
+.card {
+  background: var(--surface-2);
+  padding: 25px;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  transition: all 0.3s;
+}
+
+.card:hover {
+  border-color: var(--primary);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(46, 160, 67, 0.2);
+}
+
+.card-title {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.highlight {
+  background: rgba(46, 160, 67, 0.2);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.proyecto-box {
+  background: linear-gradient(135deg, var(--primary-dim), var(--primary));
+  padding: 35px;
+  border-radius: 16px;
+  margin: 30px 0;
+  color: white;
+  box-shadow: 0 10px 40px rgba(46, 160, 67, 0.3);
+}
+
+.proyecto-title {
+  font-size: 1.8em;
+  font-weight: 800;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.proyecto-desc {
+  font-size: 1.1em;
+  line-height: 1.8;
+  opacity: 0.95;
+}
+
+footer {
+  text-align: center;
+  margin-top: 50px;
+  padding: 30px;
+  background: var(--surface);
+  border-radius: 16px;
+  color: var(--text-dim);
+  font-size: 0.95em;
+}
+
+@media (max-width: 768px) {
+  body { padding: 10px; }
+  h1 { font-size: 2em; }
+  .section { padding: 20px; }
+  .nav { position: static; margin-bottom: 20px; flex-wrap: wrap; }
+  .code-comparison { grid-template-columns: 1fr; }
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
+@media print {
+  body { background: white; color: black; }
+  .nav { display: none; }
+  .section { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <button class="nav-btn theme-btn" id="themeBtn" onclick="toggleTheme()">☀️ Claro</button>
+  <button class="nav-btn" onclick="window.print()">🖨️ Imprimir</button>
+</div>
+
+<div class="container">
+
+<header>
+  <h1>🎮 Paradigma Funcional: Nivel 1</h1>
+  <div class="subtitle">Domótica con Estilo · Taller de Programación 3°2°</div>
+  <div class="meta">
+    <div class="badge">⏱️ 4 horas</div>
+    <div class="badge">🐍 Python</div>
+    <div class="badge">🤖 Arduino</div>
+    <div class="badge">🏠 Proyecto Domótica</div>
+    <div class="badge">👥 10 jugadores</div>
+  </div>
+</header>
+
+<!-- TIMELINE -->
+<div class="timeline">
+  <div class="timeline-title">📅 Cronograma de la Épica de Hoy</div>
+  <div class="timeline-grid">
+    <div class="time-block">
+      <div class="time-block-time">14:00 - 15:00</div>
+      <div class="time-block-desc">⚡ Hora 1: Teoría Funcional</div>
+    </div>
+    <div class="time-block">
+      <div class="time-block-time">15:00 - 16:00</div>
+      <div class="time-block-desc">🐍 Hora 2: Python Funcional</div>
+    </div>
+    <div class="time-block">
+      <div class="time-block-time">16:00 - 16:10</div>
+      <div class="time-block-desc">☕ Checkpoint: Recreo</div>
+    </div>
+    <div class="time-block">
+      <div class="time-block-time">16:10 - 17:00</div>
+      <div class="time-block-desc">🤖 Hora 3: Arduino Funcional</div>
+    </div>
+    <div class="time-block">
+      <div class="time-block-time">17:00 - 18:00</div>
+      <div class="time-block-desc">🏠 Hora 4: Proyecto Casa</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROYECTO INTEGRADOR -->
+<div class="proyecto-box">
+  <div class="proyecto-title">🏠 Proyecto Integrador: Casa Domótica MMO</div>
+  <div class="proyecto-desc">
+    <strong>MISIÓN PRINCIPAL:</strong> Ustedes son el equipo de <strong>Control de Temperatura</strong> de la casa que van a construir con MMO. Van a programar el sistema que mantiene la casa a temperatura ideal usando sensores y actuadores.
+    <br><br>
+    <strong>Tu responsabilidad:</strong> Crear funciones que lean temperatura, decidan si activar calefacción/refrigeración, y generen reportes del sistema.
+    <br><br>
+    <strong>HOY aprendemos:</strong> Programación funcional para que tu código sea <span style="background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 4px;">limpio, reutilizable y fácil de testear</span>.
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- HORA 1: INTRODUCCIÓN TEÓRICA -->
+<!-- ============================================ -->
+
+<div class="section">
+  <div class="section-title">⚡ Hora 1: ¿Qué es el Paradigma Funcional?</div>
+
+  <div class="analogy">
+    <div class="analogy-title">🎮 Analogía: Las Funciones son Máquinas Puras</div>
+    <div class="analogy-content">
+      Imaginate que cada función es una <strong>máquina en una fábrica</strong>:
+      <br><br>
+      🔹 Le das una <strong>entrada</strong> (materia prima)<br>
+      🔹 La máquina <strong>procesa</strong> (sin romper nada afuera)<br>
+      🔹 Te devuelve una <strong>salida</strong> (producto terminado)<br>
+      <br>
+      <strong>LO CLAVE:</strong> La máquina NO puede tocar otras máquinas, NO puede modificar el depósito de materiales, NO puede cambiar el clima de la fábrica. Solo hace SU trabajo con lo que le das.
+      <br><br>
+      👉 <strong>Esto se llama "función pura"</strong> — siempre da el mismo resultado con la misma entrada, sin efectos secundarios.
+    </div>
+  </div>
+
+  <div class="intro-box">
+    En el <span class="highlight">paradigma funcional</span>, programamos usando <strong>funciones puras</strong> que no modifican nada fuera de ellas. Esto hace que el código sea más <strong>predecible, testeable y fácil de mantener</strong>.
+  </div>
+
+  <!-- Conceptos Clave -->
+  <div class="card">
+    <div class="card-title">📚 Conceptos Clave del Paradigma Funcional</div>
+    
+    <div style="margin: 20px 0;">
+      <div style="background: var(--code-bg); padding: 15px; border-radius: 8px; margin: 12px 0;">
+        <strong style="color: var(--primary);">1. Funciones Puras</strong><br>
+        <span style="color: var(--text-dim);">Siempre devuelven el mismo resultado con la misma entrada. No modifican variables externas.</span>
+      </div>
+
+      <div style="background: var(--code-bg); padding: 15px; border-radius: 8px; margin: 12px 0;">
+        <strong style="color: var(--primary);">2. Inmutabilidad</strong><br>
+        <span style="color: var(--text-dim);">Los datos NO se modifican. Si necesitás cambiar algo, creás una copia nueva.</span>
+      </div>
+
+      <div style="background: var(--code-bg); padding: 15px; border-radius: 8px; margin: 12px 0;">
+        <strong style="color: var(--primary);">3. Funciones como Ciudadanos de Primera Clase</strong><br>
+        <span style="color: var(--text-dim);">Las funciones se pueden pasar como argumentos, guardar en variables, y devolver desde otras funciones.</span>
+      </div>
+
+      <div style="background: var(--code-bg); padding: 15px; border-radius: 8px; margin: 12px 0;">
+        <strong style="color: var(--primary);">4. Sin Efectos Secundarios</strong><br>
+        <span style="color: var(--text-dim);">Una función NO debe: modificar variables globales, imprimir en pantalla (salvo si es su propósito), cambiar archivos.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comparación Imperativo vs Funcional -->
+  <div style="margin-top: 30px;">
+    <h3 style="color: var(--primary); font-size: 1.5em; margin-bottom: 20px;">⚔️ Imperativo vs Funcional: La Batalla</h3>
+
+    <div class="code-comparison">
+      <!-- IMPERATIVO -->
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang python-badge">🐍 Python Imperativo</span>
+          <span class="code-status status-bad">❌ Con Efectos</span>
+        </div>
+        <pre><code># Variable global (¡peligro!)
+temperatura_total = 0
+cantidad_mediciones = 0
+
+def agregar_temperatura(temp):
+    global temperatura_total, cantidad_mediciones
+    temperatura_total += temp
+    cantidad_mediciones += 1
+
+def obtener_promedio():
+    return temperatura_total / cantidad_mediciones
+
+# Uso
+agregar_temperatura(22.5)
+agregar_temperatura(23.1)
+agregar_temperatura(21.8)
+promedio = obtener_promedio()
+
+# Problema: Las funciones modifican 
+# variables externas (efectos secundarios)</code></pre>
+      </div>
+
+      <!-- FUNCIONAL -->
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang python-badge">🐍 Python Funcional</span>
+          <span class="code-status status-good">✅ Pura</span>
+        </div>
+        <pre><code># Sin variables globales
+
+def calcular_promedio(temperaturas):
+    total = sum(temperaturas)
+    cantidad = len(temperaturas)
+    return total / cantidad
+
+# Uso
+mediciones = [22.5, 23.1, 21.8]
+promedio = calcular_promedio(mediciones)
+
+# ✅ La función es pura:
+# - No modifica nada externo
+# - Siempre da el mismo resultado
+# - Fácil de testear</code></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- HORA 2: PYTHON FUNCIONAL -->
+<!-- ============================================ -->
+
+<div class="section">
+  <div class="section-title">🐍 Hora 2: Python Funcional en Acción</div>
+
+  <!-- MISIÓN 1 -->
+  <div class="mision">
+    <div class="mision-header">
+      <div class="mision-numero">Misión 1</div>
+      <div class="mision-nivel nivel-tutorial">Tutorial</div>
+    </div>
+    <div class="mision-titulo">🌡️ Función Pura: Convertir Celsius a Fahrenheit</div>
+    <div class="mision-desc">
+      Empezamos con algo simple. Vas a crear una función PURA que convierta temperatura de Celsius a Fahrenheit.
+    </div>
+
+    <div class="ejercicio">
+      <div class="ejercicio-titulo">📝 Ejercicio 1.1: Tu Primera Función Pura</div>
+      <div class="code-block">
+        <pre><code>def celsius_a_fahrenheit(celsius):
+    """
+    Convierte temperatura de Celsius a Fahrenheit.
+    Fórmula: F = C × 9/5 + 32
+    
+    Args:
+        celsius (float): Temperatura en grados Celsius
+    
+    Returns:
+        float: Temperatura en grados Fahrenheit
+    """
+    # TODO: Completá esta función
+    pass
+
+# Tests
+print(celsius_a_fahrenheit(0))    # Debe dar: 32.0
+print(celsius_a_fahrenheit(100))  # Debe dar: 212.0
+print(celsius_a_fahrenheit(22.5)) # Debe dar: 72.5</code></pre>
+      </div>
+    </div>
+
+    <div class="checkpoint">
+      <div class="checkpoint-titulo">✅ Checkpoint Misión 1</div>
+      <ul>
+        <li>La función NO modifica variables externas</li>
+        <li>La función NO tiene print() dentro</li>
+        <li>Con la misma entrada, SIEMPRE da la misma salida</li>
+        <li>Los 3 tests pasan correctamente</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MISIÓN 2 -->
+  <div class="mision">
+    <div class="mision-header">
+      <div class="mision-numero">Misión 2</div>
+      <div class="mision-nivel nivel-facil">Fácil</div>
+    </div>
+    <div class="mision-titulo">🏠 Función Pura: Clasificar Temperatura de Casa</div>
+    <div class="mision-desc">
+      La casa domótica necesita saber si la temperatura está en el rango confortable (18°C - 24°C), hace frío, o hace calor.
+    </div>
+
+    <div class="ejercicio">
+      <div class="ejercicio-titulo">📝 Ejercicio 2.1: Clasificador de Confort</div>
+      <div class="code-block">
+        <pre><code>def clasificar_temperatura(temp):
+    """
+    Clasifica la temperatura en:
+    - "FRIO" si temp < 18
+    - "CONFORTABLE" si 18 <= temp <= 24
+    - "CALOR" si temp > 24
+    
+    Args:
+        temp (float): Temperatura en grados Celsius
+    
+    Returns:
+        str: Clasificación de la temperatura
+    """
+    # TODO: Completá esta función
+    pass
+
+# Tests
+print(clasificar_temperatura(15))   # FRIO
+print(clasificar_temperatura(21))   # CONFORTABLE
+print(clasificar_temperatura(28))   # CALOR</code></pre>
+      </div>
+    </div>
+
+    <div class="tip">
+      <div class="tip-title">💡 Tip: Función Pura</div>
+      Una función es pura si:
+      <ul style="margin-top: 10px; padding-left: 20px;">
+        <li>Solo usa los parámetros que recibe</li>
+        <li>No modifica variables de afuera</li>
+        <li>No imprime nada (solo retorna)</li>
+        <li>No lee archivos, no usa input(), no genera números random</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MISIÓN 3 -->
+  <div class="mision">
+    <div class="mision-header">
+      <div class="mision-numero">Misión 3</div>
+      <div class="mision-nivel nivel-medio">Medio</div>
+    </div>
+    <div class="mision-titulo">📊 Función de Orden Superior: Procesar Lista de Temperaturas</div>
+    <div class="mision-desc">
+      Ahora subimos de nivel. Una <strong>función de orden superior</strong> es una que recibe o devuelve otra función. Vamos a usar <code>map()</code>, <code>filter()</code> y <code>reduce()</code>.
+    </div>
+
+    <div class="ejercicio">
+      <div class="ejercicio-titulo">📝 Ejercicio 3.1: map() — Convertir Lista Completa</div>
+      <div class="code-block">
+        <pre><code># Tenemos mediciones en Celsius del día
+mediciones_celsius = [18.5, 21.3, 24.8, 22.1, 19.7]
+
+# TODO: Usar map() para convertir TODAS a Fahrenheit
+# Pista: map(funcion, lista)
+mediciones_fahrenheit = list(map(celsius_a_fahrenheit, mediciones_celsius))
+
+print(mediciones_fahrenheit)
+# Debe dar: [65.3, 70.34, 76.64, 71.78, 67.46]</code></pre>
+      </div>
+    </div>
+
+    <div class="ejercicio">
+      <div class="ejercicio-titulo">📝 Ejercicio 3.2: filter() — Solo Temperaturas Confortables</div>
+      <div class="code-block">
+        <pre><code>mediciones = [15.2, 20.5, 28.3, 22.1, 17.8, 25.9, 21.0]
+
+# TODO: Usar filter() para quedarte solo con temperaturas confortables (18-24°C)
+# Pista: filter(funcion_que_retorna_bool, lista)
+
+def es_confortable(temp):
+    # TODO: Completá esta función
+    pass
+
+temperaturas_ok = list(filter(es_confortable, mediciones))
+
+print(temperaturas_ok)
+# Debe dar: [20.5, 22.1, 21.0]</code></pre>
+      </div>
+    </div>
+
+    <div class="ejercicio">
+      <div class="ejercicio-titulo">📝 Ejercicio 3.3: Calcular Promedio con Funcional</div>
+      <div class="code-block">
+        <pre><code>from functools import reduce
+
+mediciones = [22.5, 23.1, 21.8, 22.9, 23.5]
+
+# Método imperativo (lo que YA conocen)
+total_imperativo = 0
+for temp in mediciones:
+    total_imperativo += temp
+promedio_imperativo = total_imperativo / len(mediciones)
+
+# TODO: Método funcional usando reduce()
+# reduce(funcion, lista, valor_inicial)
+# La función recibe (acumulador, elemento_actual)
+
+def sumar(acumulado, temp):
+    # TODO: Completá
+    pass
+
+total_funcional = reduce(sumar, mediciones, 0)
+promedio_funcional = total_funcional / len(mediciones)
+
+print(f"Imperativo: {promedio_imperativo}")
+print(f"Funcional: {promedio_funcional}")
+# Ambos deben dar: 22.76</code></pre>
+      </div>
+    </div>
+
+    <div class="checkpoint">
+      <div class="checkpoint-titulo">✅ Checkpoint Misión 3</div>
+      <ul>
+        <li>Entendés qué hace map() (aplica una función a cada elemento)</li>
+        <li>Entendés qué hace filter() (filtra elementos según condición)</li>
+        <li>Entendés qué hace reduce() (acumula un resultado único)</li>
+        <li>Todos tus ejercicios funcionan correctamente</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- RECREO -->
+<!-- ============================================ -->
+
+<div class="timeline" style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(251, 191, 36, 0.1));">
+  <div class="timeline-title" style="color: var(--warning);">☕ Checkpoint de Recreo (16:00 - 16:10)</div>
+  <div style="text-align: center; padding: 20px; font-size: 1.2em; color: var(--text);">
+    <strong>¡10 minutos de descanso!</strong><br>
+    Guardá tu trabajo hasta acá. Cuando volvamos, pasamos a Arduino y al proyecto de la casa domótica.
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- HORA 3: ARDUINO FUNCIONAL -->
+<!-- ============================================ -->
+
+<div class="section">
+  <div class="section-title">🤖 Hora 3: Arduino con Estilo Funcional</div>
+
+  <div class="intro-box">
+    Arduino está programado en C++, que NO es un lenguaje funcional puro. PERO podemos aplicar los <strong>principios funcionales</strong> para escribir código más limpio y organizado.
+  </div>
+
+  <div class="analogy">
+    <div class="analogy-title">🎯 Conexión Python ↔️ Arduino</div>
+    <div class="analogy-content">
+      En su proyecto, van a usar <strong>PyFirmata</strong> para controlar Arduino desde Python. Entonces:
+      <br><br>
+      🐍 <strong>Python</strong> → Funciones puras que calculan QUÉ hacer<br>
+      🤖 <strong>Arduino</strong> → Funciones que EJECUTAN (encienden/apagan pins)<br>
+      <br>
+      <strong>Separación de Responsabilidades:</strong><br>
+      • Python piensa (lógica funcional)<br>
+      • Arduino actúa (efectos en hardware)
+    </div>
+  </div>
+
+  <!-- MISIÓN 4 -->
+  <div class="mision">
+    <div class="mision-header">
+      <div class="mision-numero">Misión 4</div>
+      <div class="mision-nivel nivel-medio">Medio</div>
+    </div>
+    <div class="mision-titulo">🌡️ Arduino: Lectura de Sensor DHT22 con Estilo Funcional</div>
+    <div class="mision-desc">
+      El DHT22 es el sensor que van a usar en Tinkercad y en el proyecto real. Vamos a organizar el código de forma funcional.
+    </div>
+
+    <div class="code-comparison">
+      <!-- IMPERATIVO -->
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang arduino-badge">🤖 Arduino Imperativo</span>
+          <span class="code-status status-bad">❌ Monolítico</span>
+        </div>
+        <pre><code>#include "DHT.h"
+#define DHTPIN 2
+#define DHTTYPE DHT22
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(9600);
+  dht.begin();
+}
+
+void loop() {
+  float t = dht.readTemperature();
+  
+  // Todo mezclado en loop()
+  if (t < 18) {
+    Serial.println("FRIO");
+    digitalWrite(13, HIGH); // Calefactor
+  } else if (t > 24) {
+    Serial.println("CALOR");
+    digitalWrite(12, HIGH); // Ventilador
+  } else {
+    Serial.println("OK");
+    digitalWrite(13, LOW);
+    digitalWrite(12, LOW);
+  }
+  
+  delay(2000);
+}</code></pre>
+      </div>
+
+      <!-- FUNCIONAL -->
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang arduino-badge">🤖 Arduino Funcional</span>
+          <span class="code-status status-good">✅ Modular</span>
+        </div>
+        <pre><code>#include "DHT.h"
+#define DHTPIN 2
+#define DHTTYPE DHT22
+#define PIN_CALEFACTOR 13
+#define PIN_VENTILADOR 12
+DHT dht(DHTPIN, DHTTYPE);
+
+// Funciones puras (solo calculan)
+String clasificarTemp(float temp) {
+  if (temp < 18) return "FRIO";
+  if (temp > 24) return "CALOR";
+  return "OK";
+}
+
+bool necesitaCalefaccion(float temp) {
+  return temp < 18;
+}
+
+bool necesitaVentilacion(float temp) {
+  return temp > 24;
+}
+
+// Función de efecto (actúa en hardware)
+void controlarActuadores(float temp) {
+  digitalWrite(PIN_CALEFACTOR, necesitaCalefaccion(temp));
+  digitalWrite(PIN_VENTILADOR, necesitaVentilacion(temp));
+}
+
+void setup() {
+  Serial.begin(9600);
+  dht.begin();
+  pinMode(PIN_CALEFACTOR, OUTPUT);
+  pinMode(PIN_VENTILADOR, OUTPUT);
+}
+
+void loop() {
+  float temp = dht.readTemperature();
+  
+  Serial.println(clasificarTemp(temp));
+  controlarActuadores(temp);
+  
+  delay(2000);
+}</code></pre>
+      </div>
+    </div>
+
+    <div class="checkpoint">
+      <div class="checkpoint-titulo">✅ Ventajas del Código Funcional</div>
+      <ul>
+        <li><strong>Funciones pequeñas</strong> → Cada una hace UNA cosa</li>
+        <li><strong>Fácil de testear</strong> → Podés probar clasificarTemp() sin hardware</li>
+        <li><strong>Reutilizable</strong> → necesitaCalefaccion() se puede usar en otros lados</li>
+        <li><strong>Legible</strong> → El loop() es super claro</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MISIÓN 5 -->
+  <div class="mision">
+    <div class="mision-header">
+      <div class="mision-numero">Misión 5</div>
+      <div class="mision-nivel nivel-dificil">Difícil</div>
+    </div>
+    <div class="mision-titulo">🔥 PyFirmata: Control desde Python</div>
+    <div class="mision-desc">
+      Ahora conectamos todo. Python lee el sensor, aplica lógica funcional, y controla Arduino.
+    </div>
+
+    <div class="ejercicio">
+      <div class="ejercicio-titulo">📝 Ejercicio 5.1: Sistema Completo Python + Arduino</div>
+      <div class="code-block">
+        <pre><code>from pyfirmata import Arduino, util
+import time
+
+# Conectar a Arduino
+board = Arduino('COM3')  # Cambiar según tu puerto
+it = util.Iterator(board)
+it.start()
+
+# Configurar pines
+sensor_temp = board.get_pin('a:0:i')  # Sensor analógico
+pin_calefactor = board.get_pin('d:13:o')
+pin_ventilador = board.get_pin('d:12:o')
+
+# ============================================
+# FUNCIONES PURAS (Lógica)
+# ============================================
+
+def leer_temperatura_celsius(valor_analogico):
+    """
+    Convierte valor analógico del sensor a Celsius.
+    Esto es una función PURA.
+    """
+    # TODO: Implementar conversión
+    # Pista: Sensor TMP36 → voltaje = valor * 5.0
+    #        temp_c = (voltaje - 0.5) * 100
+    pass
+
+def clasificar_temperatura(temp):
+    """Retorna: FRIO, CONFORTABLE, o CALOR"""
+    # TODO: Reutilizar la función que hiciste antes
+    pass
+
+def decidir_actuadores(temp):
+    """
+    Retorna un diccionario con las decisiones:
+    {'calefactor': True/False, 'ventilador': True/False}
+    """
+    # TODO: Completá
+    pass
+
+# ============================================
+# FUNCIONES DE EFECTO (Actuación)
+# ============================================
+
+def aplicar_decisiones(decisiones):
+    """
+    Recibe el diccionario y actúa en el hardware.
+    Esta NO es pura (tiene efectos secundarios).
+    """
+    pin_calefactor.write(decisiones['calefactor'])
+    pin_ventilador.write(decisiones['ventilador'])
+
+def generar_reporte(temp, estado, decisiones):
+    """Imprime reporte en consola."""
+    print(f"[{time.strftime('%H:%M:%S')}] Temp: {temp:.1f}°C | Estado: {estado}")
+    print(f"  Calefactor: {'ON' if decisiones['calefactor'] else 'OFF'}")
+    print(f"  Ventilador: {'ON' if decisiones['ventilador'] else 'OFF'}")
+    print("-" * 50)
+
+# ============================================
+# LOOP PRINCIPAL
+# ============================================
+
+try:
+    while True:
+        # Leer sensor
+        valor = sensor_temp.read()
+        if valor is not None:
+            # Aplicar funciones puras
+            temp = leer_temperatura_celsius(valor)
+            estado = clasificar_temperatura(temp)
+            decisiones = decidir_actuadores(temp)
+            
+            # Aplicar efectos
+            aplicar_decisiones(decisiones)
+            generar_reporte(temp, estado, decisiones)
+        
+        time.sleep(2)
+
+except KeyboardInterrupt:
+    print("\nSistema detenido")
+    board.exit()</code></pre>
+      </div>
+    </div>
+
+    <div class="warning">
+      <div class="warning-title">⚠️ Importante: Separación de Lógica y Efectos</div>
+      Fijate cómo separamos:
+      <ul style="margin-top: 10px; padding-left: 20px;">
+        <li><strong>Funciones puras</strong> → leer_temperatura_celsius(), clasificar_temperatura(), decidir_actuadores()</li>
+        <li><strong>Funciones de efecto</strong> → aplicar_decisiones(), generar_reporte()</li>
+        <li><strong>Loop principal</strong> → Orquesta todo</li>
+      </ul>
+      Esta separación hace que sea FÁCIL testear la lógica sin necesitar el hardware.
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- HORA 4: PROYECTO INTEGRADOR -->
+<!-- ============================================ -->
+
+<div class="section">
+  <div class="section-title">🏠 Hora 4: Proyecto Casa Domótica</div>
+
+  <div class="proyecto-box">
+    <div class="proyecto-title">🎯 Tu Misión Final de Hoy</div>
+    <div class="proyecto-desc">
+      Crear el <strong>módulo de control de temperatura</strong> de la casa domótica usando TODO lo aprendido hoy:
+      <br><br>
+      ✅ Funciones puras para la lógica<br>
+      ✅ Funciones de orden superior (map, filter, reduce)<br>
+      ✅ Separación entre lógica y efectos<br>
+      ✅ Código reutilizable y testeable<br>
+      <br>
+      <strong>Entregable:</strong> Archivo Python con funciones + sketch Arduino comentado
+    </div>
+  </div>
+
+  <!-- MISIÓN BOSS -->
+  <div class="mision">
+    <div class="mision-header">
+      <div class="mision-numero">BOSS 👑</div>
+      <div class="mision-nivel nivel-boss">Proyecto</div>
+    </div>
+    <div class="mision-titulo">🏆 Sistema Completo: Control de Temperatura Casa MMO</div>
+    <div class="mision-desc">
+      Van a crear un sistema completo que:
+      <br>
+      1️⃣ Lee temperatura de un sensor DHT22 en Tinkercad<br>
+      2️⃣ Procesa los datos con funciones puras en Python<br>
+      3️⃣ Controla calefactor y ventilador según lógica funcional<br>
+      4️⃣ Genera reportes cada 5 segundos<br>
+      5️⃣ Guarda historial de las últimas 10 mediciones
+    </div>
+
+    <div class="ejercicio">
+      <div class="ejercicio-titulo">📝 Estructura del Proyecto</div>
+      <div class="code-block">
+        <pre><code>"""
+control_temperatura.py
+======================
+Módulo de control de temperatura para Casa Domótica MMO
+Paradigma: Funcional
+Autores: [TUS NOMBRES]
+Fecha: [HOY]
+"""
+
+# ============================================
+# CONFIGURACIÓN
+# ============================================
+
+TEMP_MIN_CONFORT = 18.0  # °C
+TEMP_MAX_CONFORT = 24.0  # °C
+TEMP_CRITICA_FRIO = 15.0
+TEMP_CRITICA_CALOR = 28.0
+INTERVALO_LECTURA = 5  # segundos
+
+# ============================================
+# FUNCIONES PURAS (Solo lógica, sin efectos)
+# ============================================
+
+def celsius_a_fahrenheit(celsius):
+    """Convierte Celsius a Fahrenheit."""
+    # TODO: Tu código acá
+    pass
+
+def clasificar_temperatura(temp):
+    """
+    Clasifica temperatura en:
+    - CRITICO_FRIO (< 15°C)
+    - FRIO (15-18°C)
+    - CONFORTABLE (18-24°C)
+    - CALOR (24-28°C)
+    - CRITICO_CALOR (> 28°C)
+    """
+    # TODO: Tu código acá
+    pass
+
+def calcular_ajuste(temp_actual, temp_objetivo=21.0):
+    """
+    Calcula cuánto ajustar la temperatura.
+    Retorna: diferencia en °C
+    """
+    # TODO: Tu código acá
+    pass
+
+def decidir_actuadores(temp):
+    """
+    Decide qué actuadores activar según temperatura.
+    Retorna: {'calefactor': bool, 'ventilador': bool, 'alerta': bool}
+    """
+    # TODO: Tu código acá
+    pass
+
+def calcular_estadisticas(historial):
+    """
+    Calcula estadísticas del historial de temperaturas.
+    Retorna: {'promedio': float, 'minima': float, 'maxima': float}
+    """
+    # TODO: Usar funciones de orden superior
+    # Pista: max(), min(), sum(), len()
+    pass
+
+def filtrar_temperaturas_criticas(historial):
+    """
+    Filtra solo temperaturas críticas (< 15 o > 28).
+    Usa filter().
+    """
+    # TODO: Tu código acá
+    pass
+
+def generar_reporte_textual(temp, estado, decisiones, estadisticas):
+    """
+    Genera reporte en formato texto.
+    Esta es pura porque solo RETORNA el texto, no lo imprime.
+    """
+    reporte = f"""
+    ╔══════════════════════════════════════╗
+    ║   SISTEMA DE CONTROL DE TEMPERATURA  ║
+    ╚══════════════════════════════════════╝
+    
+    🌡️  Temperatura actual: {temp:.1f}°C ({celsius_a_fahrenheit(temp):.1f}°F)
+    📊  Estado: {estado}
+    
+    🔧 Actuadores:
+       Calefactor: {'🔥 ON' if decisiones['calefactor'] else '❄️ OFF'}
+       Ventilador: {'💨 ON' if decisiones['ventilador'] else '🚫 OFF'}
+       Alerta: {'🚨 ACTIVA' if decisiones['alerta'] else '✅ Normal'}
+    
+    📈 Estadísticas (últimas 10 mediciones):
+       Promedio: {estadisticas['promedio']:.1f}°C
+       Mínima: {estadisticas['minima']:.1f}°C
+       Máxima: {estadisticas['maxima']:.1f}°C
+    
+    ═══════════════════════════════════════
+    """
+    return reporte
+
+# ============================================
+# FUNCIONES DE EFECTO (Interactúan con mundo exterior)
+# ============================================
+
+def leer_sensor(pin):
+    """Lee el sensor físico. Tiene efecto: accede a hardware."""
+    # TODO: Conectar con PyFirmata
+    pass
+
+def controlar_actuadores(decisiones, pines):
+    """Escribe en los pines de Arduino. Tiene efecto."""
+    # TODO: Escribir en pines
+    pass
+
+def guardar_en_historial(historial, nueva_temp, max_elementos=10):
+    """
+    Agrega temperatura al historial, mantiene solo las últimas N.
+    INMUTABILIDAD: No modifica el historial original, crea uno nuevo.
+    """
+    nuevo_historial = historial + [nueva_temp]
+    if len(nuevo_historial) > max_elementos:
+        nuevo_historial = nuevo_historial[-max_elementos:]
+    return nuevo_historial
+
+def imprimir_reporte(reporte_texto):
+    """Imprime en consola. Tiene efecto."""
+    print(reporte_texto)
+
+# ============================================
+# MAIN: Orquestación
+# ============================================
+
+def main():
+    """Función principal que orquesta todo."""
+    
+    # TODO: Inicializar Arduino con PyFirmata
+    # TODO: Configurar pines
+    
+    historial = []  # Lista inmutable de temperaturas
+    
+    try:
+        while True:
+            # 1. LEER (efecto)
+            temp_actual = leer_sensor(pin_sensor)
+            
+            if temp_actual is not None:
+                # 2. PROCESAR (funciones puras)
+                estado = clasificar_temperatura(temp_actual)
+                decisiones = decidir_actuadores(temp_actual)
+                historial = guardar_en_historial(historial, temp_actual)
+                estadisticas = calcular_estadisticas(historial)
+                reporte = generar_reporte_textual(temp_actual, estado, decisiones, estadisticas)
+                
+                # 3. ACTUAR (efectos)
+                controlar_actuadores(decisiones, pines_actuadores)
+                imprimir_reporte(reporte)
+            
+            time.sleep(INTERVALO_LECTURA)
+    
+    except KeyboardInterrupt:
+        print("\n🛑 Sistema detenido por usuario")
+        # TODO: Apagar todos los actuadores
+
+if __name__ == "__main__":
+    main()</code></pre>
+      </div>
+    </div>
+
+    <div class="checkpoint">
+      <div class="checkpoint-titulo">✅ Checklist del Proyecto</div>
+      <ul>
+        <li>Todas las funciones puras están correctamente implementadas</li>
+        <li>Las funciones de efecto están claramente separadas</li>
+        <li>El código usa map/filter/reduce donde corresponde</li>
+        <li>El historial se maneja de forma inmutable</li>
+        <li>El sistema funciona en Tinkercad</li>
+        <li>El código está comentado y documentado</li>
+        <li>Los tests básicos pasan</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- BONUS -->
+  <div class="mision">
+    <div class="mision-header">
+      <div class="mision-numero">BONUS 🌟</div>
+      <div class="mision-nivel nivel-boss">Extra</div>
+    </div>
+    <div class="mision-titulo">🚀 Features Adicionales (Si terminan temprano)</div>
+    <div class="mision-desc">
+      Agreguen estas funcionalidades opcionales:
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">📊 Gráfico en Tiempo Real</div>
+        <p style="color: var(--text-dim);">
+          Usar <code>matplotlib</code> para graficar las últimas 20 mediciones en tiempo real. El gráfico se actualiza cada 5 segundos.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">💾 Guardar Log en CSV</div>
+        <p style="color: var(--text-dim);">
+          Agregar una función pura que genere una línea CSV, y una función de efecto que la escriba en archivo. Formato: <code>timestamp,temp,estado,calefactor,ventilador</code>
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📱 Notificaciones</div>
+        <p style="color: var(--text-dim);">
+          Si la temperatura es crítica, enviar notificación (puede ser por Telegram, email, o simplemente un archivo de alerta).
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎛️ Control Manual</div>
+        <p style="color: var(--text-dim);">
+          Agregar la opción de forzar manualmente el estado de los actuadores (modo manual vs automático).
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CIERRE -->
+<div class="section">
+  <div class="section-title">🎯 Para Entregar Hoy</div>
+
+  <div class="card">
+    <div class="card-title">📦 Entregables</div>
+    <ol style="padding-left: 20px; color: var(--text-dim); line-height: 2;">
+      <li><strong>control_temperatura.py</strong> — Código Python completo con todas las funciones implementadas</li>
+      <li><strong>arduino_sketch.ino</strong> — Sketch de Arduino con código funcional</li>
+      <li><strong>README.md</strong> — Breve explicación de qué hace cada función pura y por qué es pura</li>
+      <li><strong>BONUS (opcional):</strong> Video o capturas del sistema funcionando en Tinkercad</li>
+    </ol>
+  </div>
+
+  <div class="tip">
+    <div class="tip-title">💡 Tips Finales</div>
+    <ul style="padding-left: 20px; color: var(--text-dim);">
+      <li>Testeá tus funciones puras ANTES de conectar Arduino</li>
+      <li>Comentá tu código explicando POR QUÉ cada función es pura o no</li>
+      <li>Usá nombres de funciones descriptivos (verbos para acciones)</li>
+      <li>Si una función hace más de una cosa, dividila en dos</li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+  <strong>Pablo Limardo · Jefatura ACPI · Ciclo 2026</strong><br>
+  Taller de Programación 3°2° · Paradigma Funcional · Proyecto Casa Domótica
+  <br><br>
+  <em style="color: var(--text-dim);">
+    "Una función pura es como una promesa: siempre cumple lo mismo con las mismas condiciones." 💚
+  </em>
+</footer>
+
+</div>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const btn = document.getElementById('themeBtn');
+  const isDark = html.getAttribute('data-theme') === 'light';
+  
+  if (isDark) {
+    html.removeAttribute('data-theme');
+    btn.textContent = '☀️ Claro';
+    localStorage.setItem('theme_funcional', 'dark');
+  } else {
+    html.setAttribute('data-theme', 'light');
+    btn.textContent = '🌙 Oscuro';
+    localStorage.setItem('theme_funcional', 'light');
+  }
+}
+
+if (localStorage.getItem('theme_funcional') === 'light') {
+  document.documentElement.setAttribute('data-theme', 'light');
+  document.getElementById('themeBtn').textContent = '🌙 Oscuro';
+}
+</script>
+
+</body>
+</html>
