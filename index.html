@@ -17,6 +17,7 @@
   --accent: #f778ba;
   --warning: #fbbf24;
   --code-bg: #0d1117;
+  --success: #10b981;
 }
 
 [data-theme="light"] {
@@ -30,6 +31,7 @@
   --accent: #d63384;
   --warning: #f59e0b;
   --code-bg: #f6f8fa;
+  --success: #059669;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -246,6 +248,47 @@ pre {
   margin-bottom: 15px;
 }
 
+.soluciones-container {
+  display: none;
+}
+
+.soluciones-container.mostrar {
+  display: block;
+}
+
+.btn-solucion {
+  background: var(--success);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 600;
+  margin-top: 15px;
+  transition: all 0.2s;
+}
+
+.btn-solucion:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.solucion-box {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 15px;
+  border-left: 4px solid var(--success);
+}
+
+.solucion-titulo {
+  font-weight: 700;
+  color: var(--success);
+  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+
 .checkpoint {
   background: linear-gradient(135deg, rgba(46, 160, 67, 0.1), rgba(46, 160, 67, 0.05));
   padding: 25px;
@@ -340,6 +383,52 @@ pre {
   color: var(--primary);
 }
 
+.proximos-pasos {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(59, 130, 246, 0.05));
+  padding: 30px;
+  border-radius: 16px;
+  border: 2px solid #3b82f6;
+  margin: 30px 0;
+}
+
+.proximos-pasos-titulo {
+  font-size: 1.5em;
+  font-weight: 800;
+  color: #3b82f6;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.proximos-pasos p {
+  font-size: 1.1em;
+  margin-bottom: 15px;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+.btn-ejercicios {
+  background: #3b82f6;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s;
+  border: none;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.btn-ejercicios:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+}
+
 footer {
   text-align: center;
   margin-top: 50px;
@@ -372,7 +461,7 @@ footer {
   <div class="meta">
     <div class="badge">🐍 Python</div>
     <div class="badge">📚 Conceptos Básicos</div>
-    <div class="badge">🏠 ACPI</div>
+    <div class="badge">🏭 ACPI</div>
   </div>
 </header>
 
@@ -499,6 +588,27 @@ print(doblar(3) == 6)     # True
 print(doblar(100) == 200) # True</code></pre>
   </div>
 
+  <button class="btn-solucion" onclick="toggleSolucion(this)">✓ Ver Solución</button>
+  <div class="soluciones-container">
+    <div class="solucion-box">
+      <div class="solucion-titulo">✓ Solución:</div>
+      <div class="code-block">
+        <pre><code>def doblar(numero):
+    resultado = numero * 2
+    return resultado
+
+# O más corto:
+def doblar(numero):
+    return numero * 2
+
+# Tests
+print(doblar(5) == 10)    # True ✓
+print(doblar(3) == 6)     # True ✓
+print(doblar(100) == 200) # True ✓</code></pre>
+      </div>
+    </div>
+  </div>
+
   <div class="checkpoint">
     <div class="checkpoint-titulo">✓ Verificá tu función</div>
     <ul>
@@ -548,6 +658,27 @@ print(doblar(100) == 200) # True</code></pre>
 print(clasificar_temperatura(15))   # FRIO
 print(clasificar_temperatura(21))   # OK
 print(clasificar_temperatura(28))   # CALOR</code></pre>
+  </div>
+
+  <button class="btn-solucion" onclick="toggleSolucion(this)">✓ Ver Solución</button>
+  <div class="soluciones-container">
+    <div class="solucion-box">
+      <div class="solucion-titulo">✓ Solución:</div>
+      <div class="code-block">
+        <pre><code>def clasificar_temperatura(temperatura):
+    if temperatura < 18:
+        return "FRIO"
+    elif temperatura > 24:
+        return "CALOR"
+    else:
+        return "OK"
+
+# Tests
+print(clasificar_temperatura(15))   # FRIO ✓
+print(clasificar_temperatura(21))   # OK ✓
+print(clasificar_temperatura(28))   # CALOR ✓</code></pre>
+      </div>
+    </div>
   </div>
 
   <div class="checkpoint">
@@ -642,6 +773,23 @@ print(calcular_energia(500, 24))   # 12 (kWh)
 print(calcular_energia(100, 10))   # 1 (kWh)</code></pre>
   </div>
 
+  <button class="btn-solucion" onclick="toggleSolucion(this)">✓ Ver Solución</button>
+  <div class="soluciones-container">
+    <div class="solucion-box">
+      <div class="solucion-titulo">✓ Solución:</div>
+      <div class="code-block">
+        <pre><code>def calcular_energia(watts, horas):
+    energia_kwh = watts * horas / 1000
+    return energia_kwh
+
+# Tests
+print(calcular_energia(1000, 8))   # 8.0 ✓
+print(calcular_energia(500, 24))   # 12.0 ✓
+print(calcular_energia(100, 10))   # 1.0 ✓</code></pre>
+      </div>
+    </div>
+  </div>
+
   <div class="checkpoint">
     <div class="checkpoint-titulo">✓ Verificá tu función</div>
     <ul>
@@ -666,7 +814,7 @@ print(calcular_energia(100, 10))   # 1 (kWh)</code></pre>
   </div>
 
   <div style="background: var(--surface-2); padding: 25px; border-radius: 12px; margin: 20px 0;">
-    <strong style="color: var(--primary); font-size: 1.1em;">❌ SIN Modularización (todo mezclado):</strong>
+    <strong style="color: #ff4444; font-size: 1.1em;">❌ SIN Modularización (todo mezclado):</strong>
     <div class="code-block" style="margin-top: 10px;">
       <pre><code># Un solo bloque grande y confuso
 temperatura = float(input("Temp: "))
@@ -688,7 +836,7 @@ else:
   </div>
 
   <div style="background: var(--surface-2); padding: 25px; border-radius: 12px; margin: 20px 0;">
-    <strong style="color: var(--primary); font-size: 1.1em;">✅ CON Modularización (funciones pequeñas):</strong>
+    <strong style="color: var(--success); font-size: 1.1em;">✅ CON Modularización (funciones pequeñas):</strong>
     <div class="code-block" style="margin-top: 10px;">
       <pre><code># Función 1: Clasificar
 def clasificar_temperatura(temp):
@@ -778,6 +926,20 @@ temp = leer_temperatura()
 estado = clasificar(temp)
 accion = activar_actuador(estado)
 mostrar_reporte(temp, estado, accion)</code></pre>
+  </div>
+
+  <button class="btn-solucion" onclick="toggleSolucion(this)">✓ Ver Solución</button>
+  <div class="soluciones-container">
+    <div class="solucion-box">
+      <div class="solucion-titulo">✓ Solución Completa:</div>
+      <div class="code-block">
+        <pre><code># Ya está casi completa arriba. Solo aclare:
+# Prueba con estas temperaturas:
+# Entrada: 10  → FRIO → CALEFACTOR: ON
+# Entrada: 21  → OK   → SISTEMA: STANDBY
+# Entrada: 30  → CALOR → VENTILADOR: ON</code></pre>
+      </div>
+    </div>
   </div>
 
   <div class="checkpoint">
@@ -881,6 +1043,35 @@ print(x)  # OK - 5
   </div>
 </div>
 
+<!-- ============================================ -->
+<!-- PRÓXIMOS PASOS -->
+<!-- ============================================ -->
+
+<div class="proximos-pasos">
+  <div class="proximos-pasos-titulo">
+    🚀 Próximos Pasos: Los 15 Ejercicios
+  </div>
+  <p>
+    Ahora que entiendes los conceptos básicos de funciones, es momento de practicar con los 
+    <strong>15 Ejercicios de Funciones en Python</strong>.
+  </p>
+  <p>
+    En esa guía encontrarás:
+  </p>
+  <ul style="margin: 15px 0 15px 20px; font-size: 1.05em;">
+    <li>✅ <strong>Material de Estudio:</strong> Funciones útiles (any, all, verificación de caracteres)</li>
+    <li>✅ <strong>15 Ejercicios:</strong> Desde básico hasta avanzado</li>
+    <li>✅ <strong>Pistas:</strong> Si te atascás</li>
+    <li>✅ <strong>Tracker de Progreso:</strong> Marca cada ejercicio que completás</li>
+  </ul>
+  <p>
+    Los ejercicios van progresivamente en dificultad y te preparan para sistemas reales como el proyecto del Ejercicio 15.
+  </p>
+  <button class="btn-ejercicios" onclick="alert('Abrí el archivo: 15_ejercicios_funciones_v2.html')">
+    📖 Ir a los 15 Ejercicios →
+  </button>
+</div>
+
 <footer>
   <strong>Pablo Limardo · Taller de Programación · 3°1° y 3°2°</strong><br>
   Escuela Industrial N°9 · El Calafate · Ciclo 2026
@@ -903,6 +1094,12 @@ function toggleTheme() {
     btn.textContent = '🌙 Oscuro';
     localStorage.setItem('theme_funciones', 'light');
   }
+}
+
+function toggleSolucion(btn) {
+  const container = btn.nextElementSibling;
+  container.classList.toggle('mostrar');
+  btn.textContent = container.classList.contains('mostrar') ? '✗ Ocultar Solución' : '✓ Ver Solución';
 }
 
 if (localStorage.getItem('theme_funciones') === 'light') {
